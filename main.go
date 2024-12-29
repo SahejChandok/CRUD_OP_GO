@@ -18,6 +18,9 @@ func main() {
 	postRouter := sm.Methods("POST").Subrouter()
 	postRouter.HandleFunc("/items", handlers.CreateItem)
 
+	getRouter := sm.Methods("GET").Subrouter()
+	getRouter.HandleFunc("/items/{id:[0-9]+}", handlers.GetItem)
+
 	s := &http.Server{
 		Addr:         ":9090",
 		Handler:      sm,

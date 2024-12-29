@@ -19,10 +19,13 @@ func main() {
 	postRouter.HandleFunc("/items", handlers.CreateItem)
 
 	getRouter := sm.Methods("GET").Subrouter()
-	getRouter.HandleFunc("/items", handlers.GetItem)
+	getRouter.HandleFunc("/items/{id:[0-9]+}", handlers.GetItem)
 
 	deleteRouter := sm.Methods("DELETE").Subrouter()
 	deleteRouter.HandleFunc("/items/{id:[0-9]+}", handlers.DeleteItems)
+
+	updateRouter := sm.Methods("PUT").Subrouter()
+	updateRouter.HandleFunc("/items/{id[0-9]+}", handlers.UpdateItems)
 
 	s := &http.Server{
 		Addr:         ":9090",
